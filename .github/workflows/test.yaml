@@ -12,16 +12,16 @@ jobs:
       - name: checkout code
         uses: actions/checkout@v3
       - uses: actions/setup-python@v6
-        name: set up py313
+        name: set up py38
         with:
-          python-version: "3.13"
-      - name: install requirements
+          python-version: "3.8"
+      - name: install requirements py38
         run: pip install -r requirements.txt
-      - name: run py test
+      - name: run py test py38
         id: run-py-test
         run: pytest --cov-report html:htmlcov --cov-report term --cov=project tests
-      - name: upload test reports
-        if: failure() && steps.run-py-test.outcome == 'failure'
+      - name: upload test reports py38
+        if: failure() && steps.run-py-test-py38.outcome == 'failure'
         uses: actions/upload-artifact@v4
         with:
           name: test-report
